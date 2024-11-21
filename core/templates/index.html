@@ -6,15 +6,24 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>hello word</h1>
+    <h1>Cadastro de alunos</h1>
 
     <ul>
         {% for pessoa in pessoas %}
-            <li> {{pessoa.id }} - {{pessoa.nome}}</li>
+            <li> {{pessoa.id }} - {{pessoa.nome}} 
+                <a href="{% url 'editar' pessoa.id %}">editar</a>
+                <a href="{% url 'delete' pessoa.id %}">deletar</a>
+            </li>
         {% empty %}
-            <li>Nenhuma pessoa cadastrada.</li>
+            <li>Nenhum aluno cadastrado.</li>
         {% endfor %}
     </ul>
+
+    <form action="{% url 'salvar' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="nome">
+        <button type="submit">salvar</button>
+    </form>
     
 </body>
 </html>
